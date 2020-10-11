@@ -18,13 +18,15 @@ def main():
     #args = parseArguments()
     #data = parseFile(args.configFile.name)
     terraform_version = "0.13.2"
+    terraform_version = subprocess.check_output("terraform --version", shell = True ).decode("utf-8") 
+    print(terraform_version)
     terraform_exists = terraform_version in terraform_version in subprocess.check_output("terraform --version", shell = True ).decode("utf-8") 
     if not terraform_exists:
       # download terraform
       error = installTerraform()
       if error > 0 :
         print("Therte wer issues with installing terraform")
-        raise Exception("Therte wer issues with installing terraform")
+        raise Exception("Therte were issues with installing terraform")
     # if exists do other suff
 
 	#&& curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS.sig \
