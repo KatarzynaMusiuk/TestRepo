@@ -17,7 +17,7 @@ def main():
   try:
     #args = parseArguments()
     #data = parseFile(args.configFile.name)
-
+    terraform_version = "0.13.2"
     try:
       output = subprocess.check_output("terraform --version", shell = True ).decode("utf-8")
     except Exception as e:
