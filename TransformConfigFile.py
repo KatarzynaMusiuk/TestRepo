@@ -22,13 +22,12 @@ def main():
       output = subprocess.check_output("terraform --version", shell = True ).decode("utf-8")
     except Exception as e:
       output = str(e.output)
-      print(output)
     terraform_exists = output.find(terraform_version)
     print(str(terraform_exists))
     if terraform_exists == -1:
       # download terraform
       print("test2")
-      error = installTerraform()
+      error = installTerraform(terraform_version)
       if error > 0 :
         print("Therte were issues with installing terraform")
         raise Exception("Therte were issues with installing terraform")
