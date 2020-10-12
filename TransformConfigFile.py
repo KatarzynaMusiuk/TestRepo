@@ -18,14 +18,19 @@ def main():
     #args = parseArguments()
     #data = parseFile(args.configFile.name)
     terraform_version = "0.13.2"
-    test = subprocess.check_output("terraform --version", shell = True ).decode("utf-8") 
-    print(str(test))
-    terraform_exists = str(subprocess.check_output("terraform --version", shell = True ).decode("utf-8")).find(terraform_version)
+    try:
+      output = subprocess.check_output("terraform --version", shell = True ).decode("utf-8")
+    except Exception as e:
+      print("test")
+      output = str(e.output)
+      print(output)
+    terraform_exists = output.find(terraform_version)
+    print(str(terraform_exists))
     if terraform_exists != -1:
       # download terraform
       error = installTerraform()
       if error > 0 :
-        print("Therte wer issues with installing terraform")
+        print("Therte were issues with installing terraform")
         raise Exception("Therte were issues with installing terraform")
     # if exists do other suff
 
