@@ -4,7 +4,7 @@ import argparse
 import yaml 
 import json
 import requests
-import gnupg
+#import gnupg
 import zipfile
 import getpass
 import subprocess
@@ -15,6 +15,7 @@ origin_url = "https://releases.hashicorp.com/terraform"
 
 def main():
   try:
+    downloadAndSaveFile("https://releases.hashicorp.com/terraform/0.13.2/terraform_0.13.2_linux_amd64.zip")
     #args = parseArguments()
     #data = parseFile(args.configFile.name)
     terraform_version = "0.13.2"
@@ -89,7 +90,7 @@ def downloadAndSaveFile(url):
   print(url)
   terraform_resp = requests.get(url)
   terraform_file = open(url.rsplit('/', 1)[-1], 'wb')
-  terraform_file.write(terraform_resp)
+  terraform_file.write(terraform_resp.content)
   terraform_resp.close()
 
 def parseArguments():
