@@ -43,11 +43,11 @@ def installTerraform(terraform_version):
   gpg = gnupg.GPG()
   import_result = gpg.import_keys(key)
 
-  downloadAndSaveFile(originUrl + f"/{terraform_version}/terraform_{terraform_version}_linux_amd64.zip")
-  downloadAndSaveFile(originUrl + f"/{terraform_version}/terraform_{terraform_version}_SHA256SUMS")
-  downloadAndSaveFile(originUrl + f"/{terraform_version}/terraform_{terraform_version}_SHA256SUMS.sig")
+  downloadAndSaveFile(origin_url + f"/{terraform_version}/terraform_{terraform_version}_linux_amd64.zip")
+  downloadAndSaveFile(origin_url + f"/{terraform_version}/terraform_{terraform_version}_SHA256SUMS")
+  downloadAndSaveFile(origin_url + f"/{terraform_version}/terraform_{terraform_version}_SHA256SUMS.sig")
   #terraform_0.13.3_linux_amd64.zip
- 
+  print("test3")
   with open(f"terraform_{terraform_version}_SHA256SUMS.sig", "rb") as sig_file:
     verify = gpg.verify_file(sig_file, f"terraform_{terraform_version}_SHA256SUMS")
     print("Gpg veryfing status")
