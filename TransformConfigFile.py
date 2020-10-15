@@ -80,9 +80,9 @@ def installTerraform(terraform_version):
     zip_ref.extractall(f"/home/{getpass.getuser()}/bin")
   os.chmod(f'/home/{getpass.getuser()}/bin/terraform', 0o755)
   #remove the redundant files 
-  os.remove("terraform_{terraform_version}_linux_amd64.zip")
-  os.remove("terraform_{terraform_version}_SHA256SUMS")
-  os.remove("terraform_{terraform_version}_SHA256SUMS.sig")
+  os.remove(f"terraform_{terraform_version}_linux_amd64.zip")
+  os.remove(f"terraform_{terraform_version}_SHA256SUMS")
+  os.remove(f"terraform_{terraform_version}_SHA256SUMS.sig")
 
 def downloadAndSaveFile(url):
   terraform_resp = requests.get(url)
