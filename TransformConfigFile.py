@@ -28,11 +28,10 @@ def main():
     print(str(terraform_exists))
     if terraform_exists == -1:
       # download terraform
-      print("test2")
-      error = installTerraform(terraform_version)
-      if error > 0 :
-        print("Therte were issues with installing terraform")
-        raise Exception("Therte were issues with installing terraform")
+      try:
+        installTerraform(terraform_version)
+      except Exception as e:
+        raise Exception(f"{str(datetime.datetime.now())}: Exception: There were issues with installing terraform - {str(e)}")
     # if exists do other suff
 
 	#&& curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS.sig \
@@ -71,10 +70,10 @@ def installTerraform(terraform_version):
     while len(fb) > 0: 
         file_hash.update(fb) 
         fb = f.read(read_size)
-  print("hexdigest")
+  print(f"{str(datetime.datetime.now())} hexdigest")
   print(file_hash.hexdigest())
   if file_hash.hexdigest() != terraform_shasum:
-    return
+    raise Exception(f"The shasum of the file is not equal terraform_{terraform_version}_SHA256SUMS")
   # if shasum equals terroform shasum unpack terraform
   with zipfile.ZipFile(f"terraform_{terraform_version}_linux_amd64.zip", 'r') as zip_ref:
     zip_ref.extractall(f"/home/{getpass.getuser()}/bin")
