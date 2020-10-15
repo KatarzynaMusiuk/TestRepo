@@ -9,6 +9,8 @@ import zipfile
 import getpass
 import subprocess
 import hashlib
+import os
+
 
 
 origin_url = "https://releases.hashicorp.com/terraform"
@@ -34,7 +36,7 @@ def main():
     # if exists do other suff
 
 	#&& curl -Os https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS.sig \
-    test = ""
+    print("done")
   except Exception as e:
     print(e)
 
@@ -42,12 +44,9 @@ def installTerraform(terraform_version):
   key = requests.get("https://keybase.io/hashicorp/pgp_keys.asc").content
   gpg = gnupg.GPG()
   import_result = gpg.import_keys(key)
-  print("test3")
   downloadAndSaveFile(origin_url + f"/{terraform_version}/terraform_{terraform_version}_linux_amd64.zip")
   downloadAndSaveFile(origin_url + f"/{terraform_version}/terraform_{terraform_version}_SHA256SUMS")
   downloadAndSaveFile(origin_url + f"/{terraform_version}/terraform_{terraform_version}_SHA256SUMS.sig")
-  #terraform_0.13.3_linux_amd64.zip
-  print("test4")
   with open(f"terraform_{terraform_version}_SHA256SUMS.sig", "rb") as sig_file:
     verify = gpg.verify_file(sig_file, f"terraform_{terraform_version}_SHA256SUMS")
     print("Gpg veryfing status")
@@ -81,19 +80,14 @@ def installTerraform(terraform_version):
     zip_ref.extractall(f"/home/{getpass.getuser()}/bin")
   os.chmod(f'/home/{getpass.getuser()}/bin/terraform', 0o755)
 
-  #	&& gpg --verify terraform_${TERRAFORM_VERSION}_SHA256SUMS.sig terraform_${TERRAFORM_VERSION}_SHA256SUMS \
-  #   && grep 'linux_amd64\.zip$' terraform_${TERRAFORM_VERSION}_SHA256SUMS >  terraform_${TERRAFORM_VERSION}_linux_amd64_SHA256SUMS \
-	#&& shasum -a 256 -c terraform_${TERRAFORM_VERSION}_linux_amd64_SHA256SUMS \
 
 def downloadAndSaveFile(url):
-  print(url)
   terraform_resp = requests.get(url)
   terraform_file = open(url.rsplit('/', 1)[-1], 'wb')
   terraform_file.write(terraform_resp.content)
   terraform_resp.close()
 
 def parseArguments():
-  
   parser = argparse.ArgumentParser()
   parser.add_argument('configFile', type=argparse.FileType('r'),  help='Path to the config file')
   return parser.parse_args()
