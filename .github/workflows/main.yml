@@ -51,7 +51,7 @@ jobs:
      - id: myvar
        run: |
          echo "$WORKFLOW_VAR"
-         "WORKFLOW_VAR=$WORKFLOW_VAR" >> $GITHUB_OUTPUT
+         echo "WORKFLOW_VAR=$WORKFLOW_VAR" >> $GITHUB_OUTPUT
        
   my_dependant_job:
     runs-on: ubuntu-latest
