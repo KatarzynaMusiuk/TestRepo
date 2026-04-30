@@ -17,12 +17,16 @@ on:
         type: environment
 jobs:
   my_matrix_example:
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     strategy:
     
       matrix:
         version: [10, 12]
         os: [ubuntu-latest, windows-latest]
+        exclude:
+          - os: ubuntu-latest
+          - version: 10
     steps: 
      - name: Print env
        id: print-env
