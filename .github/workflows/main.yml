@@ -30,7 +30,7 @@ jobs:
      - id: print-atrix
        run: |
          echo "Matrix info: ${{ matrix.version }} and ${{ matrix.os }}"
-     - if: ${{ matrix.version == '10'  &&  matrix.os == 'windows-lastest' }}
+     - if: ${{ matrix.version == '10'  &&  matrix.os == 'windows-latest' }}
        run: |
         echo "::error::testing error message"
         
