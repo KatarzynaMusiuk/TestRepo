@@ -2,6 +2,15 @@ name: test matrix flow
 on:
   workflow_dispatch:
     inputs:
+     logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
       environment:
         description: 'Environment to run tests against'
         required: true
@@ -14,4 +23,7 @@ jobs:
         version: [10, 12]
         os: [ubuntu-latest, windows-latest]
     steps: 
-     - run: echo "testing flow"
+     - run: echo "testing ${{inputs.environment}}"
+     - run: |
+         echo "Matrix info: ${{ matrix.version }} and ${{ matrix.os }}"
+         
