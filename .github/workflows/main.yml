@@ -14,4 +14,4 @@ jobs:
         version: [10, 12]
         os: [ubuntu-latest, windows-latest]
     steps: 
-     - run: echo "Tags: ${{ inputs.environment }}"
+     - run: echo "testing flow"
