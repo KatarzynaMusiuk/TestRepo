@@ -19,11 +19,18 @@ jobs:
   my_matrix_example:
     runs-on: ubuntu-latest
     strategy:
+    
       matrix:
         version: [10, 12]
         os: [ubuntu-latest, windows-latest]
     steps: 
-     - run: echo "testing ${{inputs.environment}}"
-     - run: |
+     - name: Print env
+       id: print-env
+       run: echo "testing ${{inputs.environment}}"
+     - id: print-atrix
+       run: |
          echo "Matrix info: ${{ matrix.version }} and ${{ matrix.os }}"
-         
+     - if: ${{ matrix.version == '10'  &&  matrix.os == 'windows-lastest' }}
+       run: |
+        echo "::error::testing error message"
+        
