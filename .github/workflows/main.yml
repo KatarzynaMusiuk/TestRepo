@@ -26,7 +26,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         exclude:
           - os: ubuntu-latest
-          - version: 10
+            version: 10
     steps: 
      - name: Print env
        id: print-env
