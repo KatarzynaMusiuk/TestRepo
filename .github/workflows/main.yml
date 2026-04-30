@@ -1,0 +1,17 @@
+name: test matrix flow
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        required: true
+        type: environment
+jobs:
+  my_matrix_example:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [10, 12]
+        os: [ubuntu-latest, windows-latest]
+    steps: 
+     - run: echo "Tags: ${{ inputs.environment }}"
