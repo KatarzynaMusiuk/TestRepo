@@ -2,7 +2,7 @@ name: test matrix flow
 on:
   workflow_dispatch:
     inputs:
-     logLevel:
+      logLevel:
         description: 'Log level'
         required: true
         default: 'warning'
