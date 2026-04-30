@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [10, 12]
+        version: [10]
         os: [ubuntu-latest, windows-latest]
         exclude:
           - os: ubuntu-latest
@@ -34,7 +34,19 @@ jobs:
      - id: print-matrix
        run: |
          echo "Matrix info: ${{ matrix.version }} and ${{ matrix.os }}"
-     - if: ${{ matrix.version == '10'  &&  matrix.os == 'windows-latest' }}
+   #  - if: ${{ matrix.version == '10'  &&  matrix.os == 'windows-latest' }}
+   #    run: |
+   #    echo "::error::testing error message"
+   #    exit -1
+     - if: ${{ vars.MY_VAR != '' }}
        run: |
-        echo "::error::testing error message"
-        exit -1
+         echo "WORKFLOW_VAR=${{ vars.MY_VAR }}" >> $GITHUB_ENV
+
+     - if: ${{ vars.MY_VAR == '' }}
+       run: |
+           echo "WORKFLOW_VAR=I-do-not-have-my-var" >> $GITHUB_ENV
+
+     - run: echo $WORKFLOW_VAR
+     
+
+    
