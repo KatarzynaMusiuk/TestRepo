@@ -19,6 +19,8 @@ jobs:
   my_matrix_example:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.myvar.outputs.WORKFLOW_VAR }}
     strategy:
       fail-fast: false
       matrix:
@@ -46,7 +48,16 @@ jobs:
        run: |
            echo "WORKFLOW_VAR=I-do-not-have-my-var" >> $GITHUB_ENV
 
-     - run: echo $WORKFLOW_VAR
+     - id: myvar
+       run: echo "WORKFLOW_VAR=$WORKFLOW_VAR" >> $GITHUB_OUTPUTS
+       
+  my_dependant_job:
+    runs-on: ubuntu-latest
+    needs: my_matrix_example
+    steps:
+     - id: my-var
+       run: echo "${{needs.my_matrix_example.outputs.output1}}"
+
      
 
     
