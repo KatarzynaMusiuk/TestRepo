@@ -49,7 +49,9 @@ jobs:
            echo "WORKFLOW_VAR=I-do-not-have-my-var" >> $GITHUB_ENV
 
      - id: myvar
-       run: echo "WORKFLOW_VAR=$WORKFLOW_VAR" >> "$GITHUB_OUTPUTS"
+       run: |
+         echo "$WORKFLOW_VAR"
+         "WORKFLOW_VAR=$WORKFLOW_VAR" >> $GITHUB_OUTPUT
        
   my_dependant_job:
     runs-on: ubuntu-latest
