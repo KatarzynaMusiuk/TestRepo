@@ -1,0 +1,28 @@
+name: test atefacts
+on:
+  push: 
+    branches:
+    - master
+    - main
+
+jobs:
+  build_artefact:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout my repo
+      id: checkout-my-repo
+      uses: actions/checkout@v6.0.2
+    - name: Setup Python
+      uses: actions/setup-python@v6.2.0
+      with:
+        python-version: 3.10
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v7.0.1
+      with:
+        name: mydropfile
+        path: /*.ps1
+        retention-days: 3
+        if-no-files-found: error
+        
+      
+  
