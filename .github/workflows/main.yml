@@ -58,7 +58,11 @@ jobs:
     needs: my_matrix_example
     steps:
      - id: my-var
-       run: echo "${{needs.my_matrix_example.outputs.output1}}"
+       env:
+         MY_2JOB_ENV: "${{needs.my_matrix_example.outputs.output1}}"
+       run: |
+         echo "$MY_2JOB_ENV"
+         echo "***MY_2JOB_ENV :rocket:" >> $GITHUB_STEP_SUMMARY
 
      
 
