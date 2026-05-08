@@ -20,7 +20,7 @@ jobs:
       uses: actions/upload-artifact@v7.0.1
       with:
         name: mydropfile
-        path: "*.ps1"
+        path: "${{ github.workspace }}/*.ps1"
         retention-days: 3
         if-no-files-found: error
         
