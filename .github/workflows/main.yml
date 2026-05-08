@@ -61,8 +61,8 @@ jobs:
        env:
          MY_2JOB_ENV: "${{needs.my_matrix_example.outputs.output1}}"
        run: |
-         echo "$MY_2JOB_ENV"
-         echo "***MY_2JOB_ENV :rocket:" >> $GITHUB_STEP_SUMMARY
+         echo "${{github.ref}}"
+         echo "***MY_2JOB_ENV! :rocket:" >> $GITHUB_STEP_SUMMARY
 
      
 
